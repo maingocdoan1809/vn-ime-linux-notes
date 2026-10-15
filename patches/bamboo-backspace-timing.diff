@@ -1,0 +1,14 @@
+--- a/engine_backspace.go
++++ b/engine_backspace.go
+@@ -316,8 +316,10 @@
+ 		for i := 0; i < n; i++ {
+ 			e.ForwardKeyEvent(IBusBackSpace, XkBackspace-8, 0)
+ 			e.ForwardKeyEvent(IBusBackSpace, XkBackspace-8, IBusReleaseMask)
++			// Let the Wayland client apply each deletion before sending the next.
++			time.Sleep(12 * time.Millisecond)
+ 		}
+-		time.Sleep(time.Duration(n) * (30 + BACKSPACE_INTERVAL) * time.Millisecond)
++		time.Sleep(time.Duration(n) * (45 + BACKSPACE_INTERVAL) * time.Millisecond)
+ 	} else {
+ 		fmt.Println("There's something wrong with wmClasses")
+ 	}
